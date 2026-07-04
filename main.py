@@ -1,4 +1,4 @@
-import os....
+import os
 import logging
 import asyncio
 import base64
@@ -10,7 +10,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQu
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 ADMIN_CHAT_ID = int(os.environ.get("ADMIN_CHAT_ID", "0"))
 OCR_API_KEY = os.environ.get("OCR_API_KEY", "")
-IPHONE_REWARD_LINK = "https://apps.apple.com/in/app/mehmandari/id6766165293"
+IPHONE_REWARD_LINK = "https://apps.apple.com/in/app/pedal-pit/id6774929829"
 ANDROID_REWARD_LINK = "https://t.me/jugaduBaba0/97"
 YOUTUBE_CHANNEL = "Jugadu Baba"
 YOUTUBE_CHANNEL_URL = "https://youtube.com/@JugaduBaba-bmw"
