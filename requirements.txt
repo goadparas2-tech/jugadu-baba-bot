@@ -1,3 +1,2 @@
-git add requirements.txt railway.toml Procfile
-git commit -m "fix: clean requirements.txt"
-git push origin main
+python-telegram-bot
+requests
