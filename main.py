@@ -21,9 +21,10 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 SUBSCRIBE_KEYWORDS = ["subscribed", "subscribers", "सदस्यता"]
+LIKE_KEYWORDS = ["liked", "like", "पसंद"]
 
 
-async def verify_subscription_via_ocr(photo_bytes: bytes) -> tuple[bool, str]:
+async def verify_image_via_ocr(photo_bytes: bytes, keywords: list) -> tuple[bool, str]:
     try:
         b64 = base64.b64encode(photo_bytes).decode("utf-8")
         payload = {
@@ -45,7 +46,7 @@ async def verify_subscription_via_ocr(photo_bytes: bytes) -> tuple[bool, str]:
             return False, ""
 
         full_text = " ".join(r.get("ParsedText", "") for r in parsed).lower()
-        is_verified = any(kw.lower() in full_text for kw in SUBSCRIBE_KEYWORDS)
+        is_verified = any(kw.lower() in full_text for kw in keywords)
         return is_verified, full_text
 
     except Exception as e:
@@ -162,11 +163,11 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # STEP 1 — Subscribe Verification via OCR
     if state == "waiting_subscribe":
-        processing_msg = await update.message.reply_text("🔍 *Ruko zara... Baba ka scanner chal raha hai!* ⏳", parse_mode="Markdown")
+        processing_msg = await update.message.reply_text("🔍 *Ruko zara... Baba ka scanner Subscribe check kar raha hai!* ⏳", parse_mode="Markdown")
 
         photo_file = await update.message.photo[-1].get_file()
         photo_bytes = await photo_file.download_as_bytearray()
-        is_verified, _ = await verify_subscription_via_ocr(bytes(photo_bytes))
+        is_verified, _ = await verify_image_via_ocr(bytes(photo_bytes), SUBSCRIBE_KEYWORDS)
 
         try:
             await context.bot.delete_message(chat_id=update.message.chat_id, message_id=processing_msg.message_id)
@@ -204,15 +205,35 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
 
-    # STEP 2 — Like Verified
+    # STEP 2 — Like Verification via OCR
     elif state == "waiting_like":
+        processing_msg = await update.message.reply_text("🔍 *Ruko zara... Baba ka scanner ab Like check kar raha hai!* ⏳", parse_mode="Markdown")
+
+        photo_file = await update.message.photo[-1].get_file()
+        photo_bytes = await photo_file.download_as_bytearray()
+        is_verified, _ = await verify_image_via_ocr(bytes(photo_bytes), LIKE_KEYWORDS)
+
+        try:
+            await context.bot.delete_message(chat_id=update.message.chat_id, message_id=processing_msg.message_id)
+        except Exception:
+            pass
+
+        if not is_verified:
+            await update.message.reply_text(
+                "❌ *Arrey yaar! Isme Like kahan hai?*\n\n"
+                "🔎 Baba ke scanner ne video par Like dhoondha par nahi mila!\n\n"
+                "📸 Aisa screenshot bhejo jisme video par 👍 *Like* kiya hua saaf dikh raha ho!",
+                parse_mode="Markdown"
+            )
+            return
+
         user_data[uid]["state"] = "done"
 
         try:
             await context.bot.forward_message(chat_id=ADMIN_CHAT_ID, from_chat_id=update.message.chat_id, message_id=update.message.message_id)
             await context.bot.send_message(
                 chat_id=ADMIN_CHAT_ID,
-                text=f"👑 *Step 2 (Like) bhi khatam! Link bhej diya.* \n🔢 Bakra: *#{serial}*",
+                text=f"👑 *Step 2 (Like) bhi OCR se pass! Link bhej diya.* \n🔢 Bakra: *#{serial}*",
                 parse_mode="Markdown"
             )
         except Exception as e:
@@ -296,3 +317,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
