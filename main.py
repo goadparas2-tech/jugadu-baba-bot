@@ -10,8 +10,8 @@ from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQu
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 ADMIN_CHAT_ID = int(os.environ.get("ADMIN_CHAT_ID", "0"))
 OCR_API_KEY = os.environ.get("OCR_API_KEY", "")
-IPHONE_REWARD_LINK = "https://apps.apple.com/in/app/pedal-pit/id6774929829"
-ANDROID_REWARD_LINK = "https://t.me/jugaduBaba0/97"
+IPHONE_REWARD_LINK = "https://babamodsapk.blogspot.com/?m=1"
+ANDROID_REWARD_LINK = "https://babamodsapk.blogspot.com/?m=1"
 YOUTUBE_CHANNEL = "Jugadu Baba"
 YOUTUBE_CHANNEL_URL = "https://youtube.com/@JugaduBaba-bmw"
 LINK_DELETE_SECONDS = 30
@@ -160,7 +160,6 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("🤷‍♂️ *Arrey bhai!* Abhi photo ki koi zaroorat nahi hai. Maze mat lo, /start karo!")
         return
 
-    # STEP 1 — Subscribe Verification via OCR
     if state == "waiting_subscribe":
         processing_msg = await update.message.reply_text("🔍 *Ruko zara... Baba ka scanner chal raha hai!* ⏳", parse_mode="Markdown")
 
@@ -204,7 +203,6 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
 
-    # STEP 2 — Like Verified
     elif state == "waiting_like":
         user_data[uid]["state"] = "done"
 
