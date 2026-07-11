@@ -14,7 +14,7 @@ IPHONE_REWARD_LINK = "https://babamodsapk.blogspot.com/?m=1"
 ANDROID_REWARD_LINK = "https://babamodsapk.blogspot.com/?m=1"
 YOUTUBE_CHANNEL = "Jugadu Baba"
 YOUTUBE_CHANNEL_URL = "https://youtube.com/@JugaduBaba-bmw"
-LINK_DELETE_SECONDS = 30
+LINK_DELETE_SECONDS = 60
 # ================================
 
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
