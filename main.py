@@ -10,8 +10,8 @@ from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQu
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 ADMIN_CHAT_ID = int(os.environ.get("ADMIN_CHAT_ID", "0"))
 OCR_API_KEY = os.environ.get("OCR_API_KEY", "")
-IPHONE_REWARD_LINK = "https://babamodsapk.blogspot.com/?m=1"
-ANDROID_REWARD_LINK = "https://babamodsapk.blogspot.com/?m=1"
+IPHONE_REWARD_LINK = "https://jugadutech2026.blogspot.com/?m=1"
+ANDROID_REWARD_LINK = "https://jugadutech2026.blogspot.com/?m=1"
 YOUTUBE_CHANNEL = "Jugadu Baba"
 YOUTUBE_CHANNEL_URL = "https://youtube.com/@JugaduBaba-bmw"
 LINK_DELETE_SECONDS = 60
