@@ -13,7 +13,7 @@ OCR_API_KEY = os.environ.get("OCR_API_KEY", "")
 IPHONE_REWARD_LINK = "https://jugadutech2026.blogspot.com/?m=1"
 ANDROID_REWARD_LINK = "https://jugadutech2026.blogspot.com/?m=1"
 YOUTUBE_CHANNEL = "Jugadu Baba"
-YOUTUBE_CHANNEL_URL = "https://youtube.com/@JugaduBaba-bmw"
+YOUTUBE_CHANNEL_URL = "https://youtube.com/@techjugad-9?si=pAzLXsooI2HpnZSL"
 LINK_DELETE_SECONDS = 60
 # ================================
 
