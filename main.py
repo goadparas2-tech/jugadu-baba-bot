@@ -160,11 +160,20 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("🤷‍♂️ Abhi screenshot ki zarurat nahi hai. Kripya process start karne ke liye /start par click karein.")
         return
 
-    processing_msg = await update.message.reply_text("🔍 *Kripya pratiksha karein... Aapka screenshot verify ho raha hai.* ⏳", parse_mode="Markdown")
+    # 🚀 YAHAN SE ANIMATION START HOTI HAI 🚀
+    processing_msg = await update.message.reply_text("🔄 *System Initialization...* `[----------] 0%`", parse_mode="Markdown")
+    await asyncio.sleep(0.5)
+    await processing_msg.edit_text("📡 *Connecting to Server...* `[██--------] 20%`", parse_mode="Markdown")
+    await asyncio.sleep(0.5)
+    await processing_msg.edit_text("🔍 *Image Scanning Started...* `[████------] 40%`", parse_mode="Markdown")
+    await asyncio.sleep(0.5)
+    await processing_msg.edit_text("🤖 *Checking Subscribe & Like...* `[███████---] 70%`", parse_mode="Markdown")
+    await asyncio.sleep(0.5)
+    await processing_msg.edit_text("⏳ *Finalizing Verification...* `[█████████-] 90%`", parse_mode="Markdown")
 
+    # OCR Processing
     photo_file = await update.message.photo[-1].get_file()
     photo_bytes = await photo_file.download_as_bytearray()
-    
     is_verified, _ = await verify_image_via_ocr(bytes(photo_bytes), COMBINED_KEYWORDS)
 
     try:
@@ -174,7 +183,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if not is_verified:
         await update.message.reply_text(
-            "❌ *Verification Failed!*\n\n"
+            "❌ *Verification Failed!* `[██████████] 100%`\n\n"
             "🔎 Lagta hai aapne channel Subscribe ya video Like nahi kiya hai.\n\n"
             "📸 Kripya YouTube par video ko Like aur channel ko Subscribe karein, aur ek clear screenshot yahan bhejein jisme dono dikh rahe hon. 🙏",
             parse_mode="Markdown"
